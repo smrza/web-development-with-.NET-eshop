@@ -1,0 +1,86 @@
+﻿@model UserProductViewModel
+
+@*@{
+    ViewData["Title"] = "Product Detail";
+}*@
+
+<!-- Page Content -->
+<div class="container">
+
+    @*<h2>@ViewData["Title"]</h2>
+    <h3>@ViewData["Message"]</h3>*@
+
+    <div class="row">
+
+
+        @*<div class="col-lg-9">*@
+
+            <div class="card mt-4">
+                <img class="card-img-top img-responsive " src="@Model.Product.ImageSrc" alt="@Model.Product.ImageAlt">
+                <div class="card-body">
+
+                    <h3 class="card-title"><label asp-for="@Model.Product.Name">@Model.Product.Name</label></h3>
+
+                    <h4><label asp-for="@Model.Product.Price">$ @Model.Product.Price</label></h4>
+                    @{
+                        if (Model.Product.InStock == true)
+                        {
+                            <h5>  <b>In stock</b> </h5>
+                        }
+                        else
+                        {
+                            <h5 class="text-danger">  <b>Out of stock</b> </h5>
+                        }
+                    }
+
+                    <p class="card-text"><label asp-for="@Model.Product.Description">@Model.Product.Description</label></p>
+
+
+
+                    @{
+                        @if (Model.User != null)
+                        {
+                            bool flag = false;
+
+                            foreach (var item in Model.UserProducts)
+                            {
+                                if (Model.User.Id == item.UserID && Model.Product.ID == item.ProductID)
+                                {
+                                    flag = true;
+                                }
+                            }
+
+                            @if (!flag)
+                            {
+                                <a asp-area="" asp-controller="Products" asp-action="ProductSubscription" asp-route-ID="@Model.Product.ID" asp-route-data="@Model">Subscribe For Updates (price and stock).</a>
+                            }
+                            else
+                            {
+                                <a asp-area="" asp-controller="Products" asp-action="ProductUnSubscription" asp-route-ID="@Model.Product.ID" asp-route-data="@Model">Unsubscribe.</a>
+                            }
+
+                        }
+                    }
+
+                    <input type="button" class="btn-success" value="Buy" style="font-size:1.5em"
+                           onclick="Buy(@Model.Product.ID,'@Url.Action("AddOrderItemsToSession", "CustomerOrderNotCart", new { Area = "Customer" })', '#total_price', '@System.Globalization.CultureInfo.CurrentCulture.Name')" />
+
+                </div>
+            </div>
+
+        @*</div>*@
+
+
+    </div>
+</div>
+
+<!-- /.container -->
+
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Product.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/Product.min.js"></script>
+    </environment>
+}

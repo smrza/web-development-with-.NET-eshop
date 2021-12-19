@@ -1,0 +1,60 @@
+﻿@model ProductViewModel
+@{
+    ViewData["Title"] = "Product Settings";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<p>Change your products.</p>
+
+<br />
+<a asp-action="Create">Create new product</a>
+<br />
+<br />
+<br />
+<br />
+
+@{
+    if (Model != null && Model.Products != null && Model.Products.Count > 0)
+    {
+    <table style="width:100%" class="table table-responsive table-striped table-bordered">
+        <tr>
+            <th class="col-sm-1">@Html.DisplayNameFor(model => model.Products[0].ID)</th>
+            <th class="col-sm-1">@Html.DisplayNameFor(model => model.Products[0].Name)</th>
+            <th class="col-sm-2">@Html.DisplayNameFor(model => model.Products[0].Description)</th>
+            <th class="col-sm-1">@Html.DisplayNameFor(model => model.Products[0].Price)</th>
+            <th class="col-sm-1">@Html.DisplayNameFor(model => model.Products[0].InStock)</th>
+            <th class="col-sm-2">@Html.DisplayNameFor(model => model.Products[0].ImageSrc)</th>
+            <th class="col-sm-2">@Html.DisplayNameFor(model => model.Products[0].ImageAlt)</th>
+            <th class="col-sm-1">Edit</th>
+            <th class="col-sm-1">Delete</th>
+        </tr>
+
+        @{ foreach (var productItem in Model.Products)
+            {
+                <tr>
+                    <td class="col-sm-1">@productItem.ID</td>
+                    <td class="col-sm-1">@productItem.Name</td>
+                    <td class="col-sm-2">@productItem.Description</td>
+                    <td class="col-sm-1">@productItem.Price</td>
+                    <td class="col-sm-1">@productItem.InStock</td>
+                    <td class="col-sm-2">@productItem.ImageSrc</td>
+                    <td class="col-sm-2">@productItem.ImageAlt</td>
+                    <td class="col-sm-1"><a asp-action="Edit" asp-route-ID="@productItem.ID">Edit</a></td>
+                    <td class="col-sm-1"><a asp-action="Delete" asp-route-ID="@productItem.ID" onclick="return DeleteConfirm()">Delete</a></td>
+                </tr>
+            }
+        }
+
+    </table>
+    }
+    else
+    {
+        <h2>Product is empty.</h2>
+    }
+}
+
+@section Scripts
+{
+    <script src="~/js/Scripts.js"></script>
+}

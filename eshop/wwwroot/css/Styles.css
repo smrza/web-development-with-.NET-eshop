@@ -1,0 +1,9 @@
+﻿.maxHeightCarousel {
+    max-height: 360px
+}
+
+.carousel-img-div-ratio {
+    width: 100%;
+    height: 0;
+    padding-bottom: 31.57%; /* % z šířky, definuje poměr stran */
+}

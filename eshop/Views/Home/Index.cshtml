@@ -1,0 +1,88 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Styles
+{
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/Styles.css" />
+        <link rel="stylesheet" href="~/css/shop_template.css">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/Styles.min.css" />
+        <link rel="stylesheet" href="~/css/shop_template.min.css">
+    </environment>
+}
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+        @{
+            if (Model != null && Model.carouselViewModel.Carousels != null && Model.carouselViewModel.Carousels.Count > 0)
+            {
+                <div id="@Model.carouselViewModel.Carousels[0].DataTarget.Substring(1, Model.carouselViewModel.Carousels[0].DataTarget.Length - 1)" class="carousel slide" data-ride="carousel" data-interval="6000">
+                    <ol class="carousel-indicators">
+                        @{
+                            for (int i = 0; i < Model.carouselViewModel.Carousels.Count; ++i)
+                            {
+                                string classLi = String.Empty;
+                                if (i == 0)
+                                {
+                                    classLi = "class=\"active\"";
+                                }
+
+                                <li data-target="@Model.carouselViewModel.Carousels[i].DataTarget" data-slide-to="@i" @Html.Raw(classLi)></li>
+                            }
+                        }
+                    </ol>
+                    <div class="carousel-inner " role="listbox">
+                        @{
+                            for (int i = 0; i < Model.carouselViewModel.Carousels.Count; ++i)
+                            {
+                                string classItem = "item";
+                                if (i == 0)
+                                {
+                                    classItem = "item active";
+                                }
+
+
+                                <div class="@classItem carousel-img-div-ratio">
+                                    <img src="@Model.carouselViewModel.Carousels[i].ImageSrc" alt="@Model.carouselViewModel.Carousels[i].ImageAlt" class="img-responsive" />
+                                    <div class="carousel-caption" role="option">
+                                        <p>
+                                            @Html.Raw(Model.carouselViewModel.Carousels[i].CarouselContent)
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+
+    <partial name="../Products/ProductsPartial" />
+
+</div>
+<!-- /.container -->
+
+@section Scripts {
+    <environment include="Development">
+        <script src="~/js/Product.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/Product.min.js"></script>
+    </environment>
+}

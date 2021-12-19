@@ -1,0 +1,17 @@
+﻿@model _400599ViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">400-599 Error.</h1>
+
+@if (Model != null)
+{
+    <p>
+        <strong>Status Code:</strong> <code>@Model.StatusCode</code>
+    </p>
+    <img class="card-img-top img-responsive " src="/images/notfound.png" alt="/images/notfound.png">
+    <p>
+        <strong>Jinačí error</strong>
+    </p>
+}

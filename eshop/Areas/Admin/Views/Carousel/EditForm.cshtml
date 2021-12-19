@@ -1,0 +1,45 @@
+﻿@using eshop.Areas.Admin.Controllers
+@model Carousel
+
+@{ if (String.IsNullOrWhiteSpace(ViewBag.Action) == false)
+    {
+        <div class="row">
+            <form asp-action="@ViewBag.Action" enctype="multipart/form-data" method="post">
+                <div class="form-group col-sm-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    @{ if (@ViewBag.Action == nameof(CarouselController.Edit))
+                        {
+                            <input type="hidden" asp-for="@Model.ID" class="form-control">
+                        }
+                    }
+                    <div class="form-group">
+                        <label asp-for="@Model.DataTarget"></label>
+                        <input asp-for="@Model.DataTarget" class="form-control" placeholder="Enter DataTarget">
+                        <span asp-validation-for="@Model.DataTarget" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Image"></label>
+                        <input id="fileupload" asp-for="@Model.Image" accept="image/*" class="form-inline">
+                        <span asp-validation-for="@Model.Image" class="text-danger"></span>
+                        <input type="hidden" value="/" asp-for="@Model.ImageSrc" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.ImageAlt"></label>
+                        <input asp-for="@Model.ImageAlt" class="form-control" placeholder="Enter ImageAlt">
+                        <span asp-validation-for="@Model.ImageAlt" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.CarouselContent"></label>
+                        <textarea asp-for="@Model.CarouselContent" class="form-control" placeholder="Enter CarouselContent"></textarea>
+                        <span asp-validation-for="@Model.CarouselContent" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    }
+    else
+    {
+        <h2>Form action is not set!</h2>
+    }
+}

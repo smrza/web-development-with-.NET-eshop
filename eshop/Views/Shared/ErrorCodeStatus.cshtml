@@ -1,0 +1,16 @@
+﻿@model ErrorCodeStatusViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Status Code Error.</h1>
+
+@if (Model != null)
+{
+    <p>
+        <strong>Status Code:</strong> <code>@Model.StatusCode</code>
+    </p>
+    <p>
+        <strong>Original URL:</strong> <code>@Model.OriginalURL</code>
+    </p>
+}

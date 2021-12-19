@@ -1,0 +1,61 @@
+﻿@model HomeViewModel
+
+
+<div class="row">
+    
+    <div class="">
+        <div class="row">
+            <h1 class="text-center">Products</h1>
+        </div>
+        <div class="row">
+
+            @{
+                if (Model != null && Model.productViewModel.Products.Count > 0)
+                {
+
+                    @foreach (var item in Model.productViewModel.Products)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4" >
+                            <div class="card h-100">
+                                <a asp-area="" asp-controller="Products" asp-action="Detail" asp-route-id="@item.ID"><img class="card-img-top img-responsive" src="@item.ImageSrc" alt="@item.ImageAlt"></a>
+
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a asp-area="" asp-controller="Products" asp-action="Detail" asp-route-id="@item.ID">@item.Name</a>
+                                    </h4>
+                                    <h5>  <b>$ @item.Price</b> </h5>
+
+                                    @{
+                                        if (item.InStock == true)
+                                        {
+                                            <h5>  <b>In stock</b> </h5>
+                                        }
+                                        else
+                                        {
+                                            <h5 class="text-danger">  <b>Out of stock</b> </h5>
+                                        }
+                                    }
+
+
+
+                                    <p class="card-text">@item.Description </p>
+                                </div>
+
+
+                                <input type="button" class="btn-success" value="Buy" style="font-size:1.4em;text-align:center"
+                                       onclick="Buy(@item.ID, '@Url.Action("AddOrderItemsToSession", "CustomerOrderNotCart", new { Area = "Customer" })', '#total_price', '@System.Globalization.CultureInfo.CurrentCulture.Name')" />
+
+                            </div>
+
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.col-lg-9 -->
+
+</div>
