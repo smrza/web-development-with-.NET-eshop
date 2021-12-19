@@ -1,3 +1,3 @@
 # web-development-with-.NET-eshop
 
-full eshop project with database in .net
+full eshop project with database in .net MVC pattern
